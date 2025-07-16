@@ -1,0 +1,4 @@
+This project is going to serve as base for future daily coding practices. The reason for this project is that my efforts are scattered, tiny bits of enormous scopes of work. As these projects are generally slow-going, even in intervals, I feel the takeaways and learnings from the project assignments become muddied and without a clear foothold in my mind. This project will serve as a counter measure to this. It is here that I will consolidate my theoretical and practical experience. Functions, classes, utilites that serve a purpose without necessarily being influenced by a specific project task, which I feel might otherwise influence how I percieve and tackle the task.
+
+17/6-2024
+Set up a basic C# environment with dictionary file.
