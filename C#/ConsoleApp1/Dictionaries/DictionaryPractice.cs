@@ -74,4 +74,18 @@ public class DictionaryPractice
             return $"Key = \"{key}\" not found in the dictionary.";
         }
     }
+
+    public void InsertDictionaryValue(Dictionary<int, string> dictionary, int key, string value)
+    {
+        // Check if dictionary contains key. If it doesn't exist, add value at that key.
+        if (!dictionary.ContainsKey(key))
+        {
+            dictionary.Add(key, value);
+            Console.WriteLine($"Inserted value \"{value}\" at key = \"{key}\".");
+        }
+        else
+        {
+            Console.WriteLine($"Key = \"{key}\" already exists with value \"{dictionary[key]}\".");
+        }
+    }
 }
