@@ -1,0 +1,63 @@
+# === GENERAL ===
+.DS_Store
+Thumbs.db
+
+# === VS Code ===
+.vscode/
+*.code-workspace
+
+# === C# / .NET ===
+**/bin/
+**/obj/
+**/*.user
+**/*.suo
+**/*.cache
+**/*.log
+
+
+# === C++ (PlatformIO) ===
+*.exe
+*.out
+*.o
+*.obj
+
+# === Arduino / PlatformIO ===
+.pio/
+.platformio/
+*.elf
+*.bin
+*.hex
+*.map
+*.dmp
+*.pyc
+*.pyo
+__pycache__/
+
+# === Arduino IDE generated files
+*.ino.*
+*.cpp.*
+*.d
+*.d.*
+*.bak
+*.orig
+
+# === Logs and Temp ===
+*.log
+*.tmp
+*.swp
+*.bak
+
+# === OS-specific ===
+ehthumbs.db
+Icon?
+*.DS_Store
+
+# === Git ===
+*.patch
+*.diff
+*.orig
+
+# === Project-level ===
+**/obj/**/*.AssemblyInfo.cs
+
+.env
