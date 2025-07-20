@@ -40,6 +40,8 @@ __pycache__/
 *.d.*
 *.bak
 *.orig
+/include/secrets.h
+
 
 # === Logs and Temp ===
 *.log

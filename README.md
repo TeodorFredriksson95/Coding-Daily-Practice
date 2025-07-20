@@ -16,3 +16,7 @@ This project is going to serve as base for future daily coding practices. The re
 * Arduino
 -- Set up ESP32 Devboard
 -- Verified first build and initial upload completed
+
+20/7-2025
+* Arduino
+-- Connected ESP32 Devkit to WIFI. Need a LED to further test I/O flow.
