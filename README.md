@@ -20,3 +20,12 @@ This project is going to serve as base for future daily coding practices. The re
 20/7-2025
 * Arduino
 -- Connected ESP32 Devkit to WIFI. Need a LED to further test I/O flow.
+
+21/7-2025
+* Home Plant Watering System
+-- Prepared physical connection between breadboard --> ESP32 Devboard --> MT3608 regulator OUT/IN --> 3.7V litihum battery
+-- Set up basic "Workflow & Diagnosis" schema
+
+* C# Dictionaries
+-- Tried out custom EqualityComparer for Dictionaries using objects as keys.
+-- Made a Dictionary helper method. Lives in separate file, potential to grow into helper library.

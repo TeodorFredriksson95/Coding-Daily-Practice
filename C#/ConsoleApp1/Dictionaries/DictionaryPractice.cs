@@ -6,6 +6,8 @@ public class DictionaryPractice
 {
     public void Run()
     {
+
+        //This is a simple console application to practice using dictionaries in C#.        
         Console.WriteLine("Dictionary Practice");
 
         //Create an empty deictionary
