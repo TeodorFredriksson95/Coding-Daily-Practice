@@ -29,3 +29,15 @@ This project is going to serve as base for future daily coding practices. The re
 * C# Dictionaries
 -- Tried out custom EqualityComparer for Dictionaries using objects as keys.
 -- Made a Dictionary helper method. Lives in separate file, potential to grow into helper library.
+
+22/7-2025
+* HPWS
+-- Tested electrical components of ESP8266 --> MT3608
+
+23/7-2025
+* HPWS
+-- Spliced and connected wires from battery --> MT3608
+-- Soldered MT3608 IN/OUT +/- pins
+-- Soldered MT3608 pentiometer connector pins
+-- Connected MT3608 to ESP32
+-- External battery supply for ESP32 is now working. Proceed with ESP8266 Wifi connectivity.
