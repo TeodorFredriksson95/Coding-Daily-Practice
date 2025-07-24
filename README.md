@@ -41,3 +41,8 @@ This project is going to serve as base for future daily coding practices. The re
 -- Soldered MT3608 pentiometer connector pins
 -- Connected MT3608 to ESP32
 -- External battery supply for ESP32 is now working. Proceed with ESP8266 Wifi connectivity.
+
+24/7-2025
+* C#
+-- Practicing GetAlternateLookup method for dictionaries in order to optimize lookups. As far as I understand so far, this method provides an allocation free lookup in dictionaries using an alternative type. This seems to be beneficial when looking up ReadOnlySpan<char> keys in a Dictionary<string, x> 
+situation. However, if the search key already perfectly matches the key of the dictionary, this seems to cause an overhead instead. I haven't fully grasped this concept yet, as i'm seeing many who in fact vouch for the efficiency of this method even when not using ReeadyOnlySpan<char> as alternative type for lookups. To be further investigated..

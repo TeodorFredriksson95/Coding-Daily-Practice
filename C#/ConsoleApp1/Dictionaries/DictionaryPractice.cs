@@ -14,6 +14,8 @@ public class DictionaryPractice
 
         Dictionary<int, string> gameCompanies = new Dictionary<int, string>();
 
+        gameCompanies.Clear(); // Clear the dictionary if it was previously used
+
         //Add items to the dictionary
         gameCompanies.Add(1, "Riot");
         gameCompanies.Add(2, "Blizzard");
