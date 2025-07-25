@@ -46,3 +46,11 @@ This project is going to serve as base for future daily coding practices. The re
 * C#
 -- Practicing GetAlternateLookup method for dictionaries in order to optimize lookups. As far as I understand so far, this method provides an allocation free lookup in dictionaries using an alternative type. This seems to be beneficial when looking up ReadOnlySpan<char> keys in a Dictionary<string, x> 
 situation. However, if the search key already perfectly matches the key of the dictionary, this seems to cause an overhead instead. I haven't fully grasped this concept yet, as i'm seeing many who in fact vouch for the efficiency of this method even when not using ReeadyOnlySpan<char> as alternative type for lookups. To be further investigated..
+
+25/7-2025
+* HPWS Mini Controller (ESP8266)
+-- Initialized Mini Controller One project, intended to read analog sensor data --> send/recieve data to/from ESP32 --> control peristaltic pump via MOSFET
+-- Verified that intialization and setup is building correctly
+
+* Folder Structure
+-- Re-organized folder structure to separate Main Controller(ESP32) from Mini Controller (ESP8266)
