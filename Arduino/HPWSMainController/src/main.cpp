@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <WiFi.h>
 #include "secrets.h"
+#include <HTTPClient.h>
 
 // put function declarations here:
 int myFunction(int, int);
@@ -38,54 +39,49 @@ void setup() {
 }
 
 void loop() {
-  WiFiClient client = server.available();  // listen for incoming clients
+int mockValue = 42;
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
 
-  if (client) {                     // if you get a client,
-    Serial.println("New Client.");  // print a message out the serial port
-    String currentLine = "";        // make a String to hold incoming data from the client
-    while (client.connected()) {    // loop while the client's connected
-      if (client.available()) {     // if there's bytes to read from the client,
-        char c = client.read();     // read a byte, then
-        Serial.write(c);            // print it out the serial monitor
-        if (c == '\n') {            // if the byte is a newline character
+    // Send mock data to ESP8266 endpoint registered as /send-data
+    String url = String("http://") + ESP8266_IP + "/send-data?value=" + mockValue;
+    http.begin(url);
+    int httpCode = http.GET();
 
-          // if the current line is blank, you got two newline characters in a row.
-          // that's the end of the client HTTP request, so send a response:
-          if (currentLine.length() == 0) {
-            // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
-            // and a content-type so the client knows what's coming, then a blank line:
-            client.println("HTTP/1.1 200 OK");
-            client.println("Content-type:text/html");
-            client.println();
-
-            // the content of the HTTP response follows the header:
-            client.print("Click <a href=\"/H\">here</a> to turn the LED on pin 5 on.<br>");
-            client.print("Click <a href=\"/L\">here</a> to turn the LED on pin 5 off.<br>");
-
-            // The HTTP response ends with another blank line:
-            client.println();
-            // break out of the while loop:
-            break;
-          } else {  // if you got a newline, then clear currentLine:
-            currentLine = "";
-          }
-        } else if (c != '\r') {  // if you got anything else but a carriage return character,
-          currentLine += c;      // add it to the end of the currentLine
-        }
-
-        // Check to see if the client request was "GET /H" or "GET /L":
-        if (currentLine.endsWith("GET /H")) {
-          digitalWrite(ledPin, HIGH);  // GET /H turns the LED on
-        }
-        if (currentLine.endsWith("GET /L")) {
-          digitalWrite(ledPin, LOW);  // GET /L turns the LED off
-        }
-      }
+    if (httpCode > 0) {
+      String response = http.getString();
+      Serial.println("Response: " + response);
+    } else {
+      Serial.println("Failed to send data. HTTP Code: " + String(httpCode));
     }
-    // close the connection:
-    client.stop();
-    Serial.println("Client Disconnected.");
+
+    http.end();
+
+
+      
+    delay(500); // Short delay before sending next request
+
+    // Request soil moisture data from /soil-mostiure endpoint at 8266
+    String moistureUrl = String("http://") + ESP8266_IP + "/soil-moisture";
+    http.begin(moistureUrl);
+    httpCode = http.GET();
+
+    if (httpCode > 0) {
+      String moistureValue = http.getString();
+      Serial.println("Soil Moisture Value: " + moistureValue);
+    } else {
+      Serial.println("Failed to fetch soil data. HTTP Code: " + String(httpCode));
+    }
+    http.end();
+
+  } else {
+    Serial.println("WiFi not connected");
   }
+
+  //Five second delay before repeating the loop
+  delay(5000);
+
+
 }
 
 

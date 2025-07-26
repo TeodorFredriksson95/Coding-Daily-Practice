@@ -54,3 +54,16 @@ situation. However, if the search key already perfectly matches the key of the d
 
 * Folder Structure
 -- Re-organized folder structure to separate Main Controller(ESP32) from Mini Controller (ESP8266)
+
+26/7-2025
+* HPWS Main Controller
+-- Connected MOSFET logic SIG/VCC/GND to ESP8266
+-- Connected MOSFET power VIN and GND to MT3608
+    --* Realized I'm 1 MT3608 short. The peristaltic pump is going to need 12V via the MOSFET and thus I can't let the 5V ESP8266 draw power from the same MT3608. Buy another.
+-- Tested MOSFET voltage output on signal from ESP8266 signal pin (D1). Successfully reaches 12V and 0V respectively on set intervals
+-- Created endpoint on ESP8266 and registered as server. ESp32 successfully sends mockdata to this endpoint and recieves a response.
+
+27/7-2025
+-- Connected capcitive soil sensor to ESP8266
+-- Registered endpoint for reading soil data
+-- Successfully sent request from ESP32 to ESP8266, recieving soil value within the expected range (645 out of 1037)
