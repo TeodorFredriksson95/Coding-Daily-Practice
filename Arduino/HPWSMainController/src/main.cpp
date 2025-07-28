@@ -43,18 +43,22 @@ int mockValue = 42;
   if (WiFi.status() == WL_CONNECTED) {
     HTTPClient http;
 
-    // Send mock data to ESP8266 endpoint registered as /send-data
-    String url = String("http://") + ESP8266_IP + "/send-data?value=" + mockValue;
-    http.begin(url);
-    int httpCode = http.GET();
+    // --- Send mockValue to ESP8266 as JSON ---
+    String url = String("http://") + ESP8266_IP + "/send-data";
+    http.begin(url);  // Start the POST request
+    http.addHeader("Content-Type", "application/json");
+
+    // Build JSON string
+    String json = "{\"value\": " + String(mockValue) + "}";
+
+    int httpCode = http.POST(json);
 
     if (httpCode > 0) {
       String response = http.getString();
-      Serial.println("Response: " + response);
+      Serial.println("POST Response: " + response);
     } else {
-      Serial.println("Failed to send data. HTTP Code: " + String(httpCode));
+      Serial.println("POST Failed. Code: " + String(httpCode));
     }
-
     http.end();
 
 

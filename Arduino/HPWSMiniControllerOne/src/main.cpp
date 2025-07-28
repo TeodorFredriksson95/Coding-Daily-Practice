@@ -2,6 +2,7 @@
 #include <secrets.h>
 #include <ESP8266WebServer.h>
 #include <ESP8266WiFi.h>
+#include <ArduinoJson.h>
 
 ESP8266WebServer server(80);
 
@@ -12,6 +13,24 @@ void handleMockData() {
     server.send(200, "text/plain", "Value received: " + val);
   } else {
     server.send(400, "text/plain", "Missing 'value' param");
+  }
+}
+
+void handleSendData() {
+  if (server.hasArg("plain")) {
+    String body = server.arg("plain");
+    StaticJsonDocument<200> doc;
+    DeserializationError error = deserializeJson(doc, body);
+
+    if (!error) {
+      int value = doc["value"];
+      Serial.println("Received value from ESP32 (JSON): " + String(value));
+      server.send(200, "application/json", "{\"status\":\"ok\"}");
+    } else {
+      server.send(400, "application/json", "{\"error\":\"Invalid JSON\"}");
+    }
+  } else {
+    server.send(400, "application/json", "{\"error\":\"No JSON body\"}");
   }
 }
 
@@ -64,8 +83,9 @@ void setup() {
   Serial.print("NodeMCU IP Address: ");
   Serial.print(WiFi.localIP());
 
-  server.on("/send-data", HTTP_GET, handleMockData);
   server.on("/soil-moisture", HTTP_GET, handleSoilMoisture);
+  //Updated 'handleSendData' to handle POST requests
+  server.on("/send-data", HTTP_POST, handleSendData); 
 
   server.begin();
 
