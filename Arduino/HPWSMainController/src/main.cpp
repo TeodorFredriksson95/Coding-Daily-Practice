@@ -3,20 +3,22 @@
 #include "secrets.h"
 #include <HTTPClient.h>
 
-// put function declarations here:
-int myFunction(int, int);
-
 
 WiFiServer server(80);
 
 int ledPin = 5;
+unsigned long lastSendTime = 0;
+const unsigned long sendInterval = 5000;
+const int moistureThreshold = 400; //this is currently using the raw analog value range and 400 could be considered to represent approxiamtely 38% moisture level
+
+
+
+
 void setup() {
   Serial.begin(115200);
   pinMode(ledPin, OUTPUT);  // set the LED pin mode
 
   delay(10);
-
-  // We start by connecting to a WiFi network
 
   Serial.println();
   Serial.println();
@@ -39,57 +41,73 @@ void setup() {
 }
 
 void loop() {
-int mockValue = 42;
   if (WiFi.status() == WL_CONNECTED) {
-    HTTPClient http;
+    unsigned long now = millis();
+    if (now - lastSendTime >= sendInterval) {
+      lastSendTime = now;
 
-    // --- Send mockValue to ESP8266 as JSON ---
-    String url = String("http://") + ESP8266_IP + "/send-data";
-    http.begin(url);  // Start the POST request
-    http.addHeader("Content-Type", "application/json");
+      int moisture = getMoisture();
 
-    // Build JSON string
-    String json = "{\"value\": " + String(mockValue) + "}";
+      if (moisture != -1 && moisture < moistureThreshold) {
+        int deficit = moistureThreshold - moisture;
 
-    int httpCode = http.POST(json);
-
-    if (httpCode > 0) {
-      String response = http.getString();
-      Serial.println("POST Response: " + response);
-    } else {
-      Serial.println("POST Failed. Code: " + String(httpCode));
+        // Simple example: 1 second pump per 10 units below threshold
+        int pumpDuration = map(deficit, 0, 400, 1, 10); // 1 second for every 10 units below threshold, max 10 seconds
+        Serial.println("Soil dry! Starting pump for " + String(pumpDuration) + " seconds");
+        startPump(pumpDuration);
+      } else {
+        Serial.println("Soil moisture OK");
+      }
     }
-    http.end();
-
-
-      
-    delay(500); // Short delay before sending next request
-
-    // Request soil moisture data from /soil-mostiure endpoint at 8266
-    String moistureUrl = String("http://") + ESP8266_IP + "/soil-moisture";
-    http.begin(moistureUrl);
-    httpCode = http.GET();
-
-    if (httpCode > 0) {
-      String moistureValue = http.getString();
-      Serial.println("Soil Moisture Value: " + moistureValue);
-    } else {
-      Serial.println("Failed to fetch soil data. HTTP Code: " + String(httpCode));
-    }
-    http.end();
-
-  } else {
-    Serial.println("WiFi not connected");
   }
-
-  //Five second delay before repeating the loop
-  delay(5000);
-
-
 }
 
+void sendMockValue() {
+  HTTPClient http;
+  String url = "http://" + String(ESP8266_IP) + "/send-data";
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");
+  String json = "{\"value\":42}";
+  int code = http.POST(json);
+  if (code > 0) Serial.println("POST: " + http.getString());
+  else Serial.println("POST failed: " + String(code));
+  http.end();
+}
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+int getMoisture() {
+  HTTPClient http;
+  String url = "http://" + String(ESP8266_IP) + "/soil-moisture";
+  http.begin(url);
+  int code = http.GET();
+  int moisture = -1;
+
+  if (code > 0){
+    Serial.println("Moisture: " + http.getString());
+    String result = http.getString();
+    moisture = result.toInt();
+  }
+
+  else {
+    Serial.println("GET failed: " + String(code));
+  }
+    http.end();
+    return moisture;
+}
+
+void startPump(int durationSec) {
+  HTTPClient http;
+  String url = "http://" + String(ESP8266_IP) + "/start-pump";
+  http.begin(url);
+  http.addHeader("Content-Type", "application/json");
+  String json = "{\"duration\":" + String(durationSec) + "}";
+
+  int code = http.POST(json);
+
+  if (code > 0) {
+    Serial.println("Pump start response: " + http.getString());
+  } else {
+    Serial.println("Pump start failed: " + String(code));
+  }
+
+  http.end();
 }
