@@ -51,7 +51,6 @@ void loop() {
       if (moisture != -1 && moisture < moistureThreshold) {
         int deficit = moistureThreshold - moisture;
 
-        // Simple example: 1 second pump per 10 units below threshold
         int pumpDuration = map(deficit, 0, 400, 1, 10); // 1 second for every 10 units below threshold, max 10 seconds
         Serial.println("Soil dry! Starting pump for " + String(pumpDuration) + " seconds");
         startPump(pumpDuration);
