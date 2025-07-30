@@ -64,6 +64,23 @@ situation. However, if the search key already perfectly matches the key of the d
 -- Created endpoint on ESP8266 and registered as server. ESp32 successfully sends mockdata to this endpoint and recieves a response.
 
 27/7-2025
+* HPWS Electronics Components
 -- Connected capcitive soil sensor to ESP8266
+
+* HPWS Main & Mini Controller 1
 -- Registered endpoint for reading soil data
 -- Successfully sent request from ESP32 to ESP8266, recieving soil value within the expected range (645 out of 1037)
+
+28/7-2025
+* HPWS Main Controller
+-- Tested and refactored mock data request code to a handler and changed it from GET to POST
+
+29/7-2025
+* HWPS Controllers
+-- Changed all HTTP requests handle json instead of using query params
+-- Added Start-pump endpoint and request
+
+30/7-2025
+* C#
+** Arrays
+-- 

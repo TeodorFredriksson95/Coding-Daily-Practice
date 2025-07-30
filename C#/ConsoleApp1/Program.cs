@@ -55,3 +55,7 @@ Dictionary<Person, string> personDict = new Dictionary<Person, string>(personCom
 // We're using int as the type for the key we're gonna look into the dictionary with, instead of a Person object
 var altLookup = personDict.GetAlternateLookup<int>();
 System.Console.WriteLine(altLookup[999]); // Prints the value of the element at index 999 - "Text for person two here"
+
+FirstArrayTest firstArrayTest = new FirstArrayTest();
+
+System.Console.WriteLine(firstArrayTest.nullableCars[1]?.Make ?? "No car found at index 0");
