@@ -82,5 +82,48 @@ situation. However, if the search key already perfectly matches the key of the d
 
 30/7-2025
 * C#
+* * Arrays
+-- Practiced one dimensional arrays
+* Execution Entry Point
+-- Found a new way to run file-local code which keeps program.cs free from ambigious clutter
+
+31/7-2025
+* HPWS
+-- Peristaltic pumps arrived
+-- Soldered diode and pump wires together. Connected diodes + wires to MOSFET V+/V- screwhouse
+-- Connected pump to MOSFET and MT3608
+-- Electronics prototype is getting close to functioning as expected.
+
+* C#
 ** Arrays
--- 
+-- Practiced multidimensional arrays. Only made it to initialization and declaration respectively. Trying to think of real life use-cases with jagged arrays.
+
+* HPWS To-Do
+-- Test prototype using endpoints
+-- Implement interval for deep sleep for ESP32
+-- Test prototype with deep sleep
+-- Figure out algorithm for how much water should be dispensed based on soil humidity benchmark (ie, how many seconds to run the pump for)
+-- Analyize battery usage when fully operational
+-- Build protoype for physical components setup
+-- Attach pump hose to water container and make sure the connection is waterproof to prevent leakage between pump hose and water container
+
+1/8-2025
+* HPWS
+-- Turned one of the MT3608's back down to 5v output. Means I can actually go back to using 2 MT's for the entire setup. The pump needs 5v, don't know where I got 12V from. Oh right, it says so on the product information section..
+
+-- Updated endpoints and requests to operate based on real soil humidity levels instead of mock levels.
+
+* * HPWS Testing
+-- I must've gotten the analog values wrong. 0 must surely represent a humidity percentage level of 100%, and 1037 must represent a humidity percentage level of 0. Right now the benchmark value is set to 400, and in open air the sensor returns 637. Adding water to the sensor reduces the value as opposed to increasing it, which would be expected.
+
+-- If ESP32 for some reason disconnect from ESP8266, there is no reconnection. I semi-shortcircuited the ESP8266 from the battery, which caused the ESP8266 circuit to malfunction. It rebooted fine, but after successful reboot ESP32 no longer had a connection to ESP8266. That's logical, however, as ESP8266 disconnected, ESP32 stopped sending HTTP requests, which is the main bug. Normally, the ESP32 sends requests based on its set interval, even if there is no connection to the ESP8266. Why would a disconnect on ESP8266 end interrupt ESP32's loop cycle? Even further, I'm pretty sure it's not just a disconnect that causes this, but rather the short circuit. Because if I disconnect the battery from the ESP8266, and then reconnect it, the ESP32 loop works just fine. I have to double check this.
+
+* * * HPWS TO-DO
+-- Reverse humidity benchmark values
+-- Implement deep sleep intervals for ESP32
+-- Test deep sleep intervals for ESP32. The intervals can be short during testing
+-- Verify what happens when I disconnect the battery from the ESP8266 during an otherwise successfully established connection with ESP32, and verify what happens when I reconnect the battery.
+-- Test the voltage spike during MOSFET OFF-switch. Does the diode do its job or is it redundant?
+
+
+

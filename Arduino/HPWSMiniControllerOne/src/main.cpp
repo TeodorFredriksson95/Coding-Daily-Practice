@@ -6,6 +6,29 @@
 
 ESP8266WebServer server(80);
 
+
+unsigned long previousMillisLED = 0;
+unsigned long previousMillisMOSFET = 0;
+unsigned long previousMillisSoilSensor = 0;
+
+const long intervalLED_ON = 2000;
+const long intervalLED_OFF = 5000;
+const long intervalMOSFET = 4000;
+
+bool ledState = false;
+bool mosfetState = false;
+bool soilSensorState = false;
+
+int LedPin = 2; // GPIO pin for the LED
+int mosfetPin = D1; // GPIO pin for the MOSFET
+const int soilPin = A0; // GPIO pin for the soil moisture sensor
+int latestMoisture = 0;
+
+bool pumpActive = false;
+unsigned long pumpStartMillis = 0;
+unsigned long pumpDurationMillis = 0;
+
+
 void handleMockData() {
   if (server.hasArg("value")) {
     String val = server.arg("value");
@@ -35,12 +58,6 @@ void handleSendData() {
 }
 
 
-
-int LedPin = 2; // GPIO pin for the LED
-int mosfetPin = D1; // GPIO pin for the MOSFET
-const int soilPin = A0; // GPIO pin for the soil moisture sensor
-int latestMoisture = 0;
-
 void handleSoilMoisture() {
   latestMoisture = analogRead(soilPin);
   String response = String(latestMoisture);
@@ -48,17 +65,36 @@ void handleSoilMoisture() {
   server.send(200, "text/plain", response);
 }
 
-unsigned long previousMillisLED = 0;
-unsigned long previousMillisMOSFET = 0;
-unsigned long previousMillisSoilSensor = 0;
+void handleStartPump(){
 
-const long intervalLED_ON = 2000;
-const long intervalLED_OFF = 5000;
-const long intervalMOSFET = 4000;
+    if (server.hasArg("plain")) {
+    String body = server.arg("plain");
+    StaticJsonDocument<200> doc;
+    DeserializationError error = deserializeJson(doc, body);
 
-bool ledState = false;
-bool mosfetState = false;
-bool soilSensorState = false;
+    if (!error) {
+      int durationSec = doc["duration"];
+      Serial.println("Received value from ESP32 (JSON): " + String(durationSec));
+      server.send(200, "application/json", "{\"status\":\"ok\"}");
+
+      pumpDurationMillis = durationSec * 1000;
+      pumpStartMillis = millis();
+      pumpActive = true;
+
+      digitalWrite(mosfetPin, HIGH); // ON
+      Serial.println("Pump ON for " + String(durationSec) + "s");
+
+
+    } else {
+      server.send(400, "application/json", "{\"error\":\"Invalid JSON\"}");
+    }
+  } else {
+    server.send(400, "application/json", "{\"error\":\"No JSON body\"}");
+  }
+
+
+
+}
 
 
 
@@ -84,8 +120,8 @@ void setup() {
   Serial.print(WiFi.localIP());
 
   server.on("/soil-moisture", HTTP_GET, handleSoilMoisture);
-  //Updated 'handleSendData' to handle POST requests
-  server.on("/send-data", HTTP_POST, handleSendData); 
+  server.on("/send-data", HTTP_POST, handleSendData);
+  server.on("/start-pump", HTTP_POST, handleStartPump); 
 
   server.begin();
 
@@ -110,31 +146,12 @@ void loop() {
     Serial.println("LED OFF");
   }
 
-    // --- MOSFET Logic ---
-  if (mosfetState && currentMillis - previousMillisMOSFET >= 10000) { // MOSFET turns OFF after 10 seconds
-    digitalWrite(mosfetPin, LOW); // OFF
-    previousMillisMOSFET = currentMillis;
-    mosfetState = false;
-    Serial.println("MOSFET OFF");
-  } else if (!mosfetState && currentMillis - previousMillisMOSFET >= 3000) { //MOSFET turns ON after 3 seconds
-    digitalWrite(mosfetPin, HIGH); // ON
-    previousMillisMOSFET = currentMillis;
-    mosfetState = true;
-    Serial.println("MOSFET ON");
-  }
 
-  // --- Soil Moisture Sensor Logic ---
-  // if (soilSensorState && currentMillis - previousMillisSoilSensor >= 500){ //Soil Sensor turns off
-  //   soilSensorState = false;
-  //   previousMillisSoilSensor = currentMillis;
-  //   Serial.println("Soil Sensor OFF");
-  // } else if (!soilSensorState && currentMillis - previousMillisSoilSensor >= 5000){
-  //   int moisture = analogRead(soilPin);
-  //   Serial.print("Raw moisture value: ");
-  //   Serial.println(moisture);
-  //   Serial.println("Soil Sensor ON");
-  //   soilSensorState = true;
-  // }
+  if (pumpActive && millis() - pumpStartMillis >= pumpDurationMillis) {
+  digitalWrite(mosfetPin, LOW); // Stop pump
+  pumpActive = false;
+  Serial.println("Pump OFF (duration elapsed)");
+  }
 
 }
 
