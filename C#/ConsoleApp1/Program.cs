@@ -89,3 +89,5 @@ catch (NullReferenceException e)
 
 OneDimensionalArrays.Main(); // Runs the Main method of OneDimensionalArrays. Could be quite useful for keeping program.cs a bit cleaner
 OneDimensionalArrays.DisplayArray(firstArrayTest.nullableArrayNotNullPromise, "DisplayArray Method Prints: ");
+
+MultiDimensionalArrays.Main();
