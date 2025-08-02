@@ -125,5 +125,11 @@ situation. However, if the search key already perfectly matches the key of the d
 -- Verify what happens when I disconnect the battery from the ESP8266 during an otherwise successfully established connection with ESP32, and verify what happens when I reconnect the battery.
 -- Test the voltage spike during MOSFET OFF-switch. Does the diode do its job or is it redundant?
 
+2/8-2025
+* C#
+* * Multidimensional arrays
+-- Practiced mainly 3d arrays and jagged arrays
+-- Read up on collection expressions
+-- Read up on nullable reference types and common pitfalls (Structs, generic structs, dereferences of uninitalized string arrays, constructors)
 
 

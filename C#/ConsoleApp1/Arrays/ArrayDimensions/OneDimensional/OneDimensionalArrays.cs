@@ -1,6 +1,8 @@
 
 
 
+using Microsoft.VisualBasic;
+
 public class OneDimensionalArrays
 {
     // We've made the DisplayArray method take a generic argument of type <T>. Important to remember to either adjust the code of the method 
@@ -19,6 +21,15 @@ public class OneDimensionalArrays
         arr[2] = "Fri";
     }
 
+    // Declare a single-dimensional array of 5 integers
+    public static int[] singleDimensionalArray = new int[5];
+
+    // Declare a single-dimensional array and set the values of the elements
+    public static int[] singleDimensionalArray2 = [1, 2, 3, 4, 5];
+    public OneDimensionalArrays()
+    {
+
+    }
     public static void Main()
     {
         // Declare and initialize an array.
