@@ -133,3 +133,9 @@ situation. However, if the search key already perfectly matches the key of the d
 -- Read up on nullable reference types and common pitfalls (Structs, generic structs, dereferences of uninitalized string arrays, constructors)
 
 
+3/8-2025
+* HPWS
+-- Spent the day creating schematics for the Main and Mini Controllers systems
+-- Prepared PCB for Mini Controller system
+-- It's obvious I need to look into perfboards and prototype on that before going forward with PCB
+
