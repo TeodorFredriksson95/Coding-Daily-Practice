@@ -66,6 +66,28 @@ public class MultiDimensionalArrays
         }
 
         System.Console.WriteLine($"{allLength} equals {total}");
+
+        // It helps me to visualize multidimensional arrays like this:
+        // Say we have a 2D array like so:
+        int[,] intArray2D = { { 1, 2 }, { 8, 9 }, { 15, 18 } };
+
+        // We can consider each inner bracket as part of a row in a 'column/row' table
+        // We can flatten the 2D array to visualize it
+
+        // {1, 2} --> represents row 0
+        // {8, 9} --> represents row 1
+        // {15, 18} --> represents row 2
+
+        // We can determine how many dimensions exist within an array by the amount of indicies we need to use to access an element.
+        // If we were to retrieve the value 8 we would have to use the following:
+        // intArray2D[1, 0] --> outputs 8
+
+        //Likewise, if we had a 3-dimensional array we would access a value like so:
+        // intArray3D[a, b, c]
+
+        // In the 2D array we can think of intArray2D[0,1] as intArray2D[row0, column1].
+        // Furthermore we can think of it as intArray2D[dimension0, dimension1].
+
     }
 
 }

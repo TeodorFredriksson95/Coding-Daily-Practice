@@ -139,3 +139,6 @@ situation. However, if the search key already perfectly matches the key of the d
 -- Prepared PCB for Mini Controller system
 -- It's obvious I need to look into perfboards and prototype on that before going forward with PCB
 
+4/8-2025
+* C# Multi-dimensional Arrays
+-- Mostly made comments in reference to a single initialized 2D-array, trying to visualize how dimensions are represented in order to better understand how increments and indexing of each respective dimension work. I made some good mental progress on this part which I hope will benefit me going forward with code-oriented practices using multi-dimensional arrays.
