@@ -141,13 +141,105 @@ public class MultiDimensionalArrays
             }
         };
 
-        
-    // The above cube could be declared as the following
+
+        // The above cube could be declared as the following
         int[,,] Cube3DDeclaration = new int[6, 3, 3];
-    // 6 = layers
-    // 3 = rows
-    // 3 = columns
+        // 6 = layers
+        // 3 = rows
+        // 3 = columns
+
+        // This is a comment from the C# docs:
+        // "For multi-dimensional arrays, elements are traversed such that the indices of the rightmost dimension are incremented first, 
+        // then the next left dimension, and so on, to the leftmost index."
+
+        // This must mean that given a 3D cube with 3 rows and 3 columns, each value within a single row is printed before going to the next row.
+        // So, the value of the row itself remains the same, but the iteration rather targets each column.
+
+        // If we look at the following block (dim0) containing 3rows (dim1) and 3 columns (dim2)
+
+        //         {
+        //     { 11, 12, 13 },
+        //     { 14, 15, 16 },
+        //     { 17, 18, 19 }
+        // },
+
+        // The first row would contain the following numbers: 11, 12 and 13.
+        // However, in a 3D array, each of these elements would belong to different columns. For instance, if we name our columns A, B and C, and our
+        // rows X, Y and Z, iterating over the array and printing the elements would give us the following:
+        // 11 (column A, row X), 12 (column B, row X), 13 (column C, row X)
+
+        // So, the index of the row dimension stays the same, but we increment the index of the right-most dimension, which is what we in this case have
+        // decided to call our columns.
+
+        // Print the elements of the array using foreach
+        foreach (var item in cube)
+        {
+            System.Console.WriteLine($"{item} ");
+        }
+
+
+        int temp = 0;
+        int counter = 1;
+        // Using a for loop gives us more control over the elements of each rank
+        for (int i = 0; i < cube.GetLength(0); i++) //Layers
+        {
+            if (i == 1)
+            {
+                break;
+            }
+            for (int j = 0; j < cube.GetLength(1); j++) //Rows
+            {
+                for (int k = 0; k < cube.GetLength(2); k++) //Columns
+                {
+                    // Switch the first value of the first row in the first column with the last value of the last row in the last column within the first block dimension.
+
+                    // Store the value of the first row in the first column
+                    if (k == 0 && j == 0 && i == 0)
+                    {
+                        // Store the values of the first row and column as a temp value. We will overwrite this index later and must thus preserve the original value.
+                        temp = cube[i, j, k];
+                    }
+
+                    // Check if we are at the last row of the last column within the first block
+                    if (i == 0 && j == cube.GetLength(1) - 1 && k == cube.GetLength(2) - 1)
+                    {
+                        //Assign the values of the last row and last column to the position of first row and first column of the first block.
+                        cube[0, 0, 0] = cube[i, j, k];
+
+
+                        //Assign the values of the first row and column to the last row and column of the first block.
+                        cube[i, j, k] = temp;
+
+
+                        // Print the element of the first row of the first column in the first block
+                        System.Console.WriteLine($"cube[0, 0, 0]: {cube[0, 0, 0]}"); // Expected output: 9
+
+                        // Print the element of the last row of the last column in the first block
+                        System.Console.WriteLine($"cube[0, {j}, {k}]: {cube[i, j, k]}"); // Expected output: 1
+
+
+                        // Print the whole array. First value in first row should be 9. Third value in third row should be 1.
+                        foreach (var item in cube)
+                        {
+                            System.Console.Write(item + ", ");
+                            if (counter % 3 == 0)
+                            {
+                                System.Console.WriteLine();
+                            }
+                            counter++;
+                        }
+                    }
+
+                }
+                System.Console.WriteLine();
+            }
+            System.Console.WriteLine();
+
+        }
+
     }
+
+
 
 
 }
