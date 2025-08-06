@@ -88,6 +88,66 @@ public class MultiDimensionalArrays
         // In the 2D array we can think of intArray2D[0,1] as intArray2D[row0, column1].
         // Furthermore we can think of it as intArray2D[dimension0, dimension1].
 
+
+        // ------------- 3D ARRAYS ------------------------------------------//
+
+        // We can build upon the 2D array by introducing a third dimension - the layers. We can still vizualise the array by contextualizing it
+        // as rows and columns. The layer would represent the side of a cube, or a page in a book. In the case with a page in a book, indexing the array at,
+        // let's say [2,5,3] would give us the value of the element on the 3d page, 6th column, 4th row.
+
+        // The page example is a bit abstract and we there's more nuance as to what value our indices would return unless we specify - 
+        // do the elements contain letters? Words? Sentences?
+
+        // For the sake of creating a coding exercise, let's create the a cube. A cube as we know it has 6 sides. Let's give this cube 3 rows and 3 columns,
+        // each position representing a numeric value
+
+        int[,,] cube = new int[,,]
+        {
+            // Side 1
+            {                   // Looking at this, we can imagine that the outer bracket represents the layer dimension - a page in a book or the side of a cube
+                {  1,  2,  3 }, // Looking at the inner brackets horizontally we can imagine it represents values within a row
+                {  4,  5,  6 }, // Looking at the numbers vertically we can imagine it represents values inside columns that live side by side
+                {  7,  8,  9 }
+            },
+            // Side 2
+            {
+                { 11, 12, 13 },
+                { 14, 15, 16 },
+                { 17, 18, 19 }
+            },
+            // Side 3
+            {
+                { 21, 22, 23 },
+                { 24, 25, 26 },
+                { 27, 28, 29 }
+            },
+            // Side 4
+            {
+                { 31, 32, 33 },
+                { 34, 35, 36 },
+                { 37, 38, 39 }
+            },
+            // Side 5
+            {
+                { 41, 42, 43 },
+                { 44, 45, 46 },
+                { 47, 48, 49 }
+            },
+            // Side 6
+            {
+                { 51, 52, 53 },
+                { 54, 55, 56 },
+                { 57, 58, 59 }
+            }
+        };
+
+        
+    // The above cube could be declared as the following
+        int[,,] Cube3DDeclaration = new int[6, 3, 3];
+    // 6 = layers
+    // 3 = rows
+    // 3 = columns
     }
+
 
 }
