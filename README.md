@@ -145,4 +145,4 @@ situation. However, if the search key already perfectly matches the key of the d
 
 5/8-2025
 * C# M-dimensional Arrays
--- Practiced and visualized 3D-arrays and its dimension. Starting to get the hang of how to visualize the concept in my mind.
+-- Practiced and visualized 3D-arrays and its dimensions. Starting to get the hang of how to visualize the concept in my mind.
