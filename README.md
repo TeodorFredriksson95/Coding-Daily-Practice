@@ -142,3 +142,7 @@ situation. However, if the search key already perfectly matches the key of the d
 4/8-2025
 * C# Multi-dimensional Arrays
 -- Mostly made comments in reference to a single initialized 2D-array, trying to visualize how dimensions are represented in order to better understand how increments and indexing of each respective dimension work. I made some good mental progress on this part which I hope will benefit me going forward with code-oriented practices using multi-dimensional arrays.
+
+5/8-2025
+* C# M-dimensional Arrays
+-- Practiced and visualized 3D-arrays and its dimension. Starting to get the hang of how to visualize the concept in my mind.
