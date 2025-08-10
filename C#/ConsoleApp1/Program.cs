@@ -91,3 +91,7 @@ OneDimensionalArrays.Main(); // Runs the Main method of OneDimensionalArrays. Co
 OneDimensionalArrays.DisplayArray(firstArrayTest.nullableArrayNotNullPromise, "DisplayArray Method Prints: ");
 
 MultiDimensionalArrays.Main();
+
+
+//-------------------- COLLECTIONS ----------------------------------
+CompareCollections.Main();

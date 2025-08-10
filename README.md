@@ -146,3 +146,25 @@ situation. However, if the search key already perfectly matches the key of the d
 5/8-2025
 * C# M-dimensional Arrays
 -- Practiced and visualized 3D-arrays and its dimensions. Starting to get the hang of how to visualize the concept in my mind.
+
+6-8/2025
+* Broken Seal project
+-- Didn't really practice but focused on pushing code for Broken Seal build 1 playtest
+
+9/8-2025
+-- No coding cos birthday
+
+10/8-2025
+* C# Collections
+-- Very surface level declarations of lists and arrays, and one use-case of the spread element.
+
+* C# Syntax
+-- Every now and then I have to make sure i'm using the right verbal syntax when discussing:
+    --- Declaration
+    --- Assignment
+    --- Initialization
+    --- Instantiation
+-- So, I set up an area to practice it. It's good I did because simply reviewing the docs reminds me a bit of simple compilation processes done during these different segments.
+
+* BS (Broken Seal)
+-- Finished up a bit with the save/load systems for build 1 playtests.
