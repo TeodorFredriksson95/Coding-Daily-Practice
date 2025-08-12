@@ -168,3 +168,11 @@ situation. However, if the search key already perfectly matches the key of the d
 
 * BS (Broken Seal)
 -- Finished up a bit with the save/load systems for build 1 playtests.
+
+11/8-2025
+* Home Plant Watering System
+-- Spent the day finishing protoype #2 and doing math. Too tired for practice
+
+12/8-2025
+* C#
+-- Practiced Hashsets. I understand the performance benefit of HashSets compared to other collections.
