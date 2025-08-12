@@ -95,3 +95,7 @@ MultiDimensionalArrays.Main();
 
 //-------------------- COLLECTIONS ----------------------------------
 CompareCollections.Main();
+
+
+//-------------------- HASHSETS ----------------------------------
+HashSetTest.Main();
