@@ -176,3 +176,7 @@ situation. However, if the search key already perfectly matches the key of the d
 12/8-2025
 * C#
 -- Practiced Hashsets. I understand the performance benefit of HashSets compared to other collections.
+
+25/8-2025
+* Vacay
+-- Back from vacation. Took a break from practice to focus on HPWS protoype #3.
