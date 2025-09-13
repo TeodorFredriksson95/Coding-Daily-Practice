@@ -99,3 +99,8 @@ CompareCollections.Main();
 
 //-------------------- HASHSETS ----------------------------------
 HashSetTest.Main();
+
+
+//------------------- PAIR PROGRAMMING --------------------------
+BaseCharacter.Main();
+Warrior.Main();
